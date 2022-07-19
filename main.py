@@ -4,6 +4,8 @@
 
 import tkinter as tk
 from tkinter import *
+from array import *
+
 
 ws = Tk()
 ws. title("E=mc\u00b2 Airlines")
@@ -88,10 +90,18 @@ def ReserveSeat():
     if ch_class == 0:
         message.config(text = "Choose a class!")
     elif ch_class == 1:
-        message.config(text = "First class")
-        assignedSeats[pos][0]=person
-        assignedSeats[pos][1]=availableFirstSeats[0][0]
+        if(len(availableFirstSeats[0]) > 0):
+            message.config(text = "First class")
+            assignedSeats.append([])
+            assignedSeats[pos].append(person)
+            s = availableFirstSeats[0][0]
+            assignedSeats[pos].append(s)
+            del(availableFirstSeats[0][0])
+            if(len(availableFirstSeats[0]) == 0):
+                del(availableFirstSeats[0])
         print(assignedSeats)
+        print(availableFirstSeats)
+        print(len(availableFirstSeats[0]))
 
 
 autoReserve = tk.Button(text = "Assign Seat", bg = "lightgreen", command = ReserveSeat)
